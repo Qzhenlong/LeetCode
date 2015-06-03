@@ -1,9 +1,19 @@
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include <string> 
 #include <math.h>
 using namespace std;
+/*
+原题：
+Given two binary strings, return their sum (also a binary string).
+For example,
+a = "11"
+b = "1"
+Return "100".
 
+解析：给定两个二进制字符串，返回相加结果
+思路：考虑上一位的进位，某位的相加情况有0，1，2，3，对各情况考虑在内即可
+*/
 class Solution {
 public:
     string addBinary(string a, string b) {
@@ -26,7 +36,7 @@ public:
     
        string addBinary1(string a, string b) {
         string ans = "";
-        char c = '0'; //cΪ��λ
+        char c = '0'; //进位
         if(a.size() == 0 && b.size() == 0) return "0";
         if(a.size() == 0 || a == "0") return b;
         if(b.size() == 0 || b == "0") return a;
