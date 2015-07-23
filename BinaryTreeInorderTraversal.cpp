@@ -14,7 +14,12 @@ Given binary tree {1,#,2,3},
     /
    3
 return [1,3,2].
+
 解析：返回二叉树的中序遍历序列
+
+思路：
+（1）递归或者非递归实现，空间复杂度都为O(n)
+（2）空间复杂度为O(1)的解法，做完Recover Binary Search Tree一题后，发现有Mirror遍历，利用线索二叉树的思路遍历
 
  **/
  struct TreeNode {
@@ -61,6 +66,31 @@ public:
 		}
 		return ans;
     }	
+	//Mirror遍历
+	vector<int > inorderTraversal2(TreeNode* root) {
+        vector<int > ans;
+		TreeNode *cur = root, *pre = NULL;
+		while(cur != NULL){
+			if(cur->left == NULL){ //左子树为空，可以直接访问
+				ans.push_back(cur->val);
+				cur = cur->right; //访问右子树
+			}
+			else{
+				pre = cur->left;
+				while(pre->right != NULL && pre->right != cur)	pre = pre->right; //找出左子树最右下方结点
+				if(pre->right == NULL){
+					pre->right = cur; //线索化二叉树
+					cur = cur->left; //继续往左子树结点
+				}
+				else{ //找到线索，可访问当前
+					ans.push_back(cur->val); //访问当前结点,可理解成是子树的根结点
+					pre->right = NULL; //消除线索化
+					cur = cur->right; //遍历右子树结点
+				}
+			}
+		}
+		return ans;
+    }	
     TreeNode * trans(int A[], int i, int n)
     {
         TreeNode *b;
@@ -90,7 +120,7 @@ int main()
   root = c.trans(A,1,sizeof(A)/4);
   c.printTree(root);
   printf("\n");   
-  vector<int > ans = c.inorderTraversal1(root);
+  vector<int > ans = c.inorderTraversal2(root);
   for(int i = 0; i < ans.size(); i++)
 	cout << ans[i] << " ";
   return 1;   
