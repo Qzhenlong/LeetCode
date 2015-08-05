@@ -3,6 +3,15 @@
 #include<set>
 using namespace std;
 /*
+题目：
+Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+
+For example, given
+s = "leetcode",
+dict = ["leet", "code"].
+
+Return true because "leetcode" can be segmented as "leet code".
+
 思路：
 动态规划：
 长度为n的字符串，应该有n+1个隔板
